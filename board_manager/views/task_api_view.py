@@ -12,12 +12,7 @@ class TasksRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
 
 class FilterListAPIView(generics.ListAPIView):
-    permission_classes = [AllowAny]
     serializer_class = TaskSerializer
 
     def get_queryset(self, request, *args, **kwargs):
-        print("dentro del get queryset")
-        queryset = Task.objects.all()
-        url_id = super(get_queryset, self).get_queryset(self, request, *args, **kwargs)
-
-        return queryset
+        pass
