@@ -1,0 +1,1 @@
+from board_manager.serializers.task_serializer import TaskSerializer
