@@ -9,11 +9,12 @@ class TasksListCreateAPIViewTest(APITestCase): #nombre de la vista +test
     print("running TasksListCreateAPIViewTest")
     def setUp(self): #crea las cosas necesarias para testear la vista
         self.url = reverse('tasks') #llama al endpoint : nombre como se llame el name (url de la api)
+
         self.task_1 = Task.objects.create(
             task_name ='task1',
             description ='task list create APIView ',
-            state ='uno',
-            priority ='uno',
+            state ='BL',
+            priority ='H',
             date_of_delivery = timezone.now(),
             comment = ''
         ) #cerrar parentesis al mismo nivel que se abre la variable
@@ -21,8 +22,8 @@ class TasksListCreateAPIViewTest(APITestCase): #nombre de la vista +test
         self.task_2 = Task.objects.create(
             task_name ='prueba2',
             description ='asdfasdf',
-            state ='dos',
-            priority ='dos',
+            state ='TD',
+            priority ='M',
             date_of_delivery = timezone.now(),
             comment = ''
         )
@@ -52,6 +53,19 @@ class TasksListCreateAPIViewTest(APITestCase): #nombre de la vista +test
 
         count_db_objects = Task.objects.all().count()
         self.assertEqual(count_db_objects, 3)
+
+    def test_filter(self):
+        # url_retrieve = reverse('task', args=[1])
+        # print(url_retrieve)
+        data = {'taskname':'',
+                'state':'BL',
+                'priority':'H'
+        }
+        response = self.client.get('/board_manager/tasks/',data=data)
+        # print(response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        # print(len(response.data))
 
 
 
@@ -86,4 +100,5 @@ class TasksRetrieveUpdateDestroyAPIViewTest(APITestCase):
 
         data = { "task_name": "cambio2"}
         response = self.client.patch(self.url_retrieve, data=data)
-        print(response.status_code)
+        # print(response.status_code)
+

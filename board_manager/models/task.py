@@ -1,7 +1,6 @@
 from django.db import models
 
 class Task(models.Model):
-    
     HIGH = 'H'
     MEDIUM = 'M'
     LOW = 'L'
